@@ -1,0 +1,55 @@
+  <div class="py-5" style="margin-top: 50px; min-height: 700px; background-color: white; color: black;">
+    <div class="container" style="margin-top: 15px;">
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+
+          <div>
+            <a class="bluedark btn" href="/records">New Records</a>
+            <a class="bluedark btn" href="/records/deleted">Deleted Records</a>
+          </div>
+
+          <br>
+
+
+          {{#if record}}
+
+          <div class="card1" style="padding: 20px;">
+              <div>
+                <a class="btn btn-block buzablue" href="{{record.fileUrl}}">Download</a>
+              </div>
+              <br>
+              <div>
+                <label>Uploaded By: </label>
+                <h6>{{record.uploader}}</h6>
+              </div>
+              <br>
+              <div>
+                <label>Department: </label>
+                <h6>{{record.site}}</h6>
+              </div>
+              <br>
+              <div>
+                <label>Date Uploaded: </label>
+                <h6>{{record.date}}</h6>
+              </div>
+              <br>
+              <div>
+                <label>Condition: </label>
+                <h6>{{record.condition}}</h6>
+              </div>
+              <br>
+              <div>
+                <label>Delete: </label>
+                <a href="/records/deleterecord/{{record._id}}"><span style="height: 50px;" class="glyphicon glyphicon-trash"></span></a>
+              </div>
+
+          </div>
+
+          {{/if}}
+
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+      </div>
+    </div>
+  </div>

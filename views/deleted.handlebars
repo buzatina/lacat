@@ -1,0 +1,72 @@
+<body class="body body-records">
+
+  <div class="navbar navbar-records w-nav" data-animation="over-left" data-collapse="all" data-duration="400">
+    <div class="w-container">
+      <a class="w-nav-brand" href="/records"><img height="50" src="https://s3-us-west-2.amazonaws.com/buzatina/lacat/lacat+logo.png">
+      </a>
+      <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="#">Log Out</a>
+      </nav>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-tabs w-container">
+    <div class="tabs w-row">
+      <div class="column-3 deleted-reocords w-col w-col-2 w-col-medium-2 w-col-small-2 w-col-tiny-2">
+        <div><a class="active deleted-records tab-link" href="/records">current</a>
+        </div>
+      </div>
+      <div class="column-4 deleted-column w-col w-col-2 w-col-medium-2 w-col-small-2 w-col-tiny-2">
+        <div><a class="deactive deleted tab-link" href="/records/deleted">deleted</a>
+        </div>
+      </div>
+      <div class="column-5 w-col w-col-8 w-col-medium-8 w-col-small-8 w-col-tiny-8"><a href="/records/new"><img src="https://s3-us-west-2.amazonaws.com/buzatina/lacat/icons8-Upload-to-Cloud-Filled-50.png"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="experience-boss section section-records">
+    <div class="div-records">
+      <div class="records-table-header w-row">
+        <div class="column-records table-header w-col w-col-6 w-col-small-6 w-col-tiny-6">
+          <h5 class="h5-table-headers">Description</h5>
+        </div>
+        <div class="column-records table-header w-col w-col-2 w-col-small-2 w-col-tiny-2">
+          <h5 class="h5-table-headers">Date</h5>
+        </div>
+        <div class="column-records table-header w-col w-col-2 w-col-small-2 w-col-tiny-2">
+          <h5 class="h5-table-headers">View / Download</h5>
+        </div>
+        <div class="column-records table-header w-col w-col-2 w-col-small-2 w-col-tiny-2"></div>
+      </div>
+
+      {{#if record}}
+        {{#each record}}
+          <div class="w-row">
+            <div class="column-records w-col w-col-6 w-col-small-6 w-col-tiny-6">
+              <h5 class="records-document-text">{{this.description}}</h5>
+            </div>
+            <div class="column-records w-col w-col-2 w-col-small-2 w-col-tiny-2">
+              <h5 class="records-document-text">{{this.recordDate}}</h5>
+            </div>
+            <div class="column-records delete-button w-col w-col-2 w-col-small-2 w-col-tiny-2"><a class="records-delete-button w-button" href="{{this.fileUrl}}">view</a>
+            </div>
+            <div class="column-records delete-button deleted-boss w-col w-col-2 w-col-small-2 w-col-tiny-2"></div>
+          </div>
+        {{/each}}
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="footer footer-deleted-section">
+    <div class="container w-container">
+      <p class="paragraph-3">Company Reg. 2017/199686/07</p>
+    </div>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/buzatina/lacat/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>

@@ -1,0 +1,169 @@
+<div id='map' style='height:400px;width:500px; display: none;'></div>
+
+<br>
+
+<div id="loadImg" style="display: none;">
+  <div style="text-align: center;">
+    <span style="text-align: center; font-size: 15px; color: black;"><b>Loading.... Please wait</b></span>
+  </div>  
+</div>
+
+<div class="row" id="main" style="margin: 5px;">
+
+    <input type="text" value="{{this.user._id}}" style="font-size: 11px; display: none;" class="form-control" id="userId">
+
+        <div class="panel panel-default card1">
+          <div class="panel-heading" style="background-color: white;">
+              <h3 class="panel-title w3-center"><b>Please Select Image Below</b></h3>
+          </div>
+
+          {{#if user}}
+          <div class="w3-center">
+            <img src="{{this.user.picUrl}}" style="height: 250px;" class="w3-center" id="profilePic">
+          </div>
+
+          {{/if}}
+
+
+            <div class="panel-body">
+
+              <br>
+
+              <form method="POST" action="/settings/setPicture" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <input type="file" name="fileData" accept="image/*" id="file-chooser" required />
+                  </div>
+
+                  <span id="err_file" class="w3-text-blue" style="display: none;"><b>Please select image above..</b></span>
+                  <br>
+                  <span id="loading" style="display: none; color: #1b96fe;"><b>Loading...</b></span>
+                  <br>
+
+                  <input id="imageUpload" class="btn btn-lg btn-block w3-center" style="background-color: #1b96fe; border: none; color: white;" value="Upload"></input>
+
+              </form>
+
+            </div>
+
+        </div>
+
+        <div class="panel panel-default card1">
+
+            <div class="panel-heading" style="background-color: white;">
+              <h3 class="panel-title w3-center"> <b>Settings</b> </h3>
+            </div>
+
+            <div class="panel-body">
+
+                <table class="table">
+
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody>
+
+                      <tr id="displayLocation">
+                        <td><b>Check In</b> (Helps you engage with people 5km around you...)</td>
+                        <td><button style="background-color: black; color: white;" type="button" class="btn btn-lg" id="locationModal"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button></td>
+                      </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+        <br>
+</div>
+<!-- Ends main row -->
+
+<script type="text/javascript">
+
+    var socket = io.connect();  
+
+    $('#imageUpload').click(function(){
+
+      console.log('Button clicked');
+
+      var userId = $('#userId').val();
+
+      var fileChooser = document.getElementById('file-chooser');
+      var file = fileChooser.files[0];
+
+        if (file) {
+
+          socket.emit('pictureEvent', {file: file, userId: $('#userId').val()});
+          $('#main').hide();
+          $('#loadImg').show();
+
+          setTimeout(function() {
+            window.location.assign("/settings/settings");
+          }, 14000);
+
+          
+        } else {
+
+           console.log('Error occurred while setting picture');
+
+        };
+
+    });
+
+    $('#locationModal').click(function(){
+          
+      var loadMap = function (id) {
+          var HELSINKI = [60.1708, 24.9375];
+          var map = L.map(id);
+          var tile_url = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+          var layer = L.tileLayer(tile_url, {
+              attribution: 'OSM'
+          });
+          map.addLayer(layer);
+          map.setView(HELSINKI, 19);
+
+          map.locate({setView: false, watch: true})  This will return map so you can do chaining 
+              .on('locationfound', function(e){
+
+                console.log(e.latitude);
+                console.log(e.longitude);
+
+                setGeo({'latitude': e.latitude, 'longitude': e.longitude});
+ 
+              })
+             .on('locationerror', function(e){
+                  console.log(e);
+                  alert("Location access denied.");
+              });
+        };
+
+        loadMap('map');
+
+        var setGeo =  function (dataGeo){
+
+                    $.ajax({
+                            type: 'POST',
+                            data: JSON.stringify(dataGeo),
+                            contentType: "application/json",
+                            dataType:'json',
+                            url: '/settings/checkIn',                      
+                            success: function(data) {
+                                console.log('success');                               
+                            },
+
+                            error: function(error) {
+                                console.log("some error in fetching the notifications");
+                             }
+                    });
+                    
+
+          };
+
+
+      });
+
+</script>

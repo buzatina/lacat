@@ -1,0 +1,75 @@
+ <body class="body login">
+  <div class="navbar navbar-records w-nav" data-animation="over-left" data-collapse="all" data-duration="400">
+    <div class="w-container">
+      <a class="w-nav-brand" href="#"><img height="50" src="https://s3-us-west-2.amazonaws.com/buzatina/lacat/lacat+logo.png">
+      </a>
+      <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="/logout">Log Out</a>
+      </nav>
+      <div class="w-nav-button">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="register-section-form">
+    <div class="container-register w-container">
+      <div class="w-form">
+
+        <form id="recordForm" method="POST" action="/" novalidate>
+          <input class="w-input" style="display: none;" maxlength="256" id="userid" name="userid" value="{{user._id}}" required="required" type="text">
+          <label for="name-3">Uploaded By:</label>
+          <input class="w-input" maxlength="256" name="uploader" id="uploader" value="{{user.name}}" required="required" type="text">
+          <label for="name-3">Description:</label>
+          <input class="w-input" maxlength="256" name="description" id="description" placeholder="what record are you saving.." required="required" type="text">
+          <label for="name-3">Condition:</label>
+          <input class="w-input" maxlength="256" name="condition" id="condition" placeholder="e.g. good, bad, etc" required="required" type="text">
+          <label for="name-3">Site:</label>
+          <input class="w-input" maxlength="256" name="site" id="site" placeholder="e.g. Durban, Johannesburg, etc" required="required" type="text">
+          <label for="name-3">File Type:</label>
+          <input class="w-input" maxlength="256" name="fileType" id="fileType" placeholder="e.g. pdf, image, video, etc" required="required" type="text">
+          <label for="name-3">Date:</label>
+          <input class="w-input" maxlength="256" name="recordDate" id="recordDate" placeholder="e.g. 18 June 2017" required="required" type="text">
+          <label for="name-3">Select File Below:</label>
+          <input class="w-input" maxlength="256" id="file" name="name" placeholder="Enter your name" required="required" type="file">
+          <input class="w-button" id="record" type="submit" value="Save">
+        </form>
+ 
+      </div>
+    </div>
+  </div>
+  <div class="footer register-footer">
+    <div class="container w-container">
+      <p class="paragraph-3">Company Reg. 2017/199686/07</p>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/buzatina/lacat/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+
+<script type="text/javascript">
+  
+  var socket = io.connect('https://lacat.herokuapp.com');
+
+  $("#recordForm").submit(function(e){
+    
+    e.preventDefault();
+    $('#record').val('Please wait');
+    $('#record').prop('disabled', true);
+    
+    console.log('The recordForm was clicked boi');
+    
+    var recordData = {file: $("#file")[0].files[0], actualFileType: $("#file")[0].files[0].type, fileName: $("#file")[0].files[0].name, userid: $("#userid").val(), description: $("#description").val(), site: $("#site").val(), recordDate: $("#recordDate").val(), fileType: $("#fileType").val(), condition: $("#condition").val(), uploader: $("#uploader").val() };
+    
+    console.log(recordData);
+
+    socket.emit('newRecord', recordData);
+
+    setTimeout(function() {
+      window.location.assign("https://lacat.herokuapp.com");
+    }, 7000);
+
+  });
+
+</script>
+
+</body>

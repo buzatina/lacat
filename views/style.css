@@ -1,0 +1,46 @@
+body {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+h6 {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+h5 {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+h4 {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+h2 {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+h1 {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+h3 {
+  font-family: "Open Sans", sans-serif
+  font-size: 10px;
+}
+
+a {
+  color: #2a2b2b
+}    
+
+.navbar {
+    border-bottom: 1px solid #d9d8d5;
+}
+
+footer {
+  margin-top: 40px;
+}
