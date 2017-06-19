@@ -1,0 +1,29 @@
+{
+  "name": "buzatina",
+  "version": "1.0.0",
+  "description": "buzatina dot com",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tebogo Ntlatleng",
+  "license": "buzatina dot com",
+  "dependencies": {
+    "aws-sdk": "^2.12.0",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "sendgrid": "^4.7.1",
+    "socket.io": "^1.7.2"
+  }
+}

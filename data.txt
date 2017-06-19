@@ -1,0 +1,3 @@
+heroku config:set MONGOURI=mongodb://tebogo:mokgaga19916@ds155920-a0.mlab.com:55920,ds155920-a1.mlab.com:55920/buzatinalive?replicaSet=rs-ds155920
+heroku config:set ACCESSKEY=AKIAJTAHEHCE7ITIOAMA
+heroku config:set SECRETKEY=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

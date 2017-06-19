@@ -1,0 +1,8 @@
+{
+  "name": "buzatina.com",
+  "description": "We Enable Entrepreneurship",
+  "repository": "https://github.com/buzatina/lacat.git",
+  "logo": "https://s3-us-west-2.amazonaws.com/uploadtebogo/buzatina.JPG",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
