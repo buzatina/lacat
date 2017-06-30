@@ -14,8 +14,6 @@ router.post('/register', function(req, res){
     
     var hashpass = '';
 
-    console.log(req.body);
-
 	bcrypt.genSalt(10, function(err, salt){
 
 		bcrypt.hash(req.body.password, salt, function(err, hash){
@@ -25,8 +23,6 @@ router.post('/register', function(req, res){
 		});
 
 	});
-
-
 
     // Connect To a Database
 	var MongoClient = require('mongodb').MongoClient
@@ -41,12 +37,11 @@ router.post('/register', function(req, res){
 
       // Full text search
 	  db.collection('users').insertOne({
-				      username: req.body.email,
+				      username: req.body.username,
 				      name: req.body.name,
 				      company: req.body.company,
-				      email: req.body.email,
 				      password: hashpass,
-				      location: {type: 'Point', coordinates: [Number(1), Number(-1)] }
+				      location: {type: 'Point', coordinates: [Number(1), Number(-1)]}
 					}, function(err, result){
 						if (err) {
 
@@ -55,48 +50,16 @@ router.post('/register', function(req, res){
 						} else {
 
 							console.log(result);
+							res.redirect('/users/login')
 
 						};
-
+						
 					});
 
 	  // End insert single document
 
     });
 
-});
-
-//Get User Profile
-router.get('/profile/:userid', function(req, res){
-
-    var idProfile = req.params.userid;
-	User.findById(idProfile, function (err, question) {
-		if (err) {} else{
-
-			console.log(idProfile);
-
-			console.log(question);
-
-			res.render('profile', {userProfile: question});
-
-		};
-	});
-
-		if (req.user) {
-			user = req.user;
-		};
-
-	});
-
-// Render Login Page
-router.get('/login', function(req, res){
-	res.render('login');
-});
-
-
-router.get('/logout', function(req, res){
-	req.logout();
-	res.redirect('/');
 });
 
 module.exports = router;

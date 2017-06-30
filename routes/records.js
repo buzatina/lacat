@@ -4,17 +4,6 @@ var user;
 var ObjectID = require('mongodb').ObjectID;
 
 //Get New Records
-router.get('/new', function(req, res){
-    
-    var sendUser = req.user;
-
-    sendUser.password = '';
-
-	res.render('create', {user: sendUser});
-	
-});
-
-//Get New Records
 router.get('/', function(req, res){
 
     // Connect To a Database
