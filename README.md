@@ -1,2 +1,2 @@
-# buzatinadotcomDemo
-Demo to display to potential strategic partners
+# buzatina.com
+This is no demo boi.... launch this shit boss
