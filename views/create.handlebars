@@ -48,7 +48,7 @@
 
 <script type="text/javascript">
   
-  var socket = io.connect('https://lacat.herokuapp.com');
+  var socket = io.connect('/'+"{{user._id}}");
 
   $("#recordForm").submit(function(e){
     
@@ -64,9 +64,13 @@
 
     socket.emit('newRecord', recordData);
 
-    setTimeout(function() {
-      window.location.assign("https://lacat.herokuapp.com/records/");
-    }, 7000);
+    socket.on('uploadedRecord', function (data) {
+
+      console.log('Uploaded');
+
+      window.location.assign("http://localhost:3000/");
+
+    });
 
   });
 
