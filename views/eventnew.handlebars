@@ -80,13 +80,13 @@
   <script type="text/javascript">
 
     $(document).ready(function(){
-        var socket = io.connect('/'+"{{user._id}}");
 
     $("#eventForm").submit(function(e){
       
       e.preventDefault();
       $('#eventSubmit').val('Please wait');
       $('#eventSubmit').prop('disabled', true);
+      var socket = io.connect('/'+"{{user._id}}");
       
       console.log('The recordForm was clicked boi');
       
