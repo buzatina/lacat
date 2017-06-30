@@ -95,13 +95,12 @@
       console.log(eventData);
 
       socket.emit('newEvent', eventData);
-      window.location.assign("/events");
 
       socket.on('uploadedRecord', function (data) {
 
         console.log('Uploaded');
 
-        window.location.assign("http://localhost:3000/");
+         window.location.assign("/events");
 
       });
 
