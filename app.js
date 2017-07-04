@@ -14,8 +14,6 @@ var bcrypt = require('bcryptjs');
 // This is for routing
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var records = require('./routes/records');
-var event = require('./routes/events');
 
 // Initialize the app
 var app = express();
@@ -96,7 +94,7 @@ passport.serializeUser(function(user, done) {
   done(null, user.username);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function(id, done){
  
     // Connect To a Database
   var MongoClient = require('mongodb').MongoClient
@@ -127,10 +125,13 @@ passport.deserializeUser(function(id, done) {
 
           });
 
+
+    // End insert single document
+
     });
 
 });
- 
+
 // Express Session
 app.use(session({
 	secret: 'secret',
@@ -181,11 +182,7 @@ app.use(function(req, res, next){
 app.post('/users/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/events');
-});
-
-app.get('/users/login', function(req, res){
-  res.render('login');
+    res.redirect('/listbiz/list');
 });
 
 app.get('/users/logout', function(req, res){
@@ -196,22 +193,20 @@ app.get('/users/logout', function(req, res){
 // Is this the actual routing?
 app.use('/', routes);
 app.use('/users', users);
-app.use('/records', records);
-app.use('/events', event);
 
 // What Is the best way 
 var router = express.Router();
 
 app.set('port', (process.env.PORT || 3000));
 
-//New Event
-app.get('/events/new', function(req, res){
+//List A business
+app.get('/listbiz/list', function(req, res){
     
     var sendUser = req.user;
 
     sendUser.password = '';
 
-  res.render('eventnew', {user: sendUser});
+    res.render('addlisting', {user: sendUser});
 
 
       var nsp = io.of('/'+req.user._id);
@@ -219,26 +214,27 @@ app.get('/events/new', function(req, res){
 
           console.log('One socket connected');
 
-          socket.on('newEvent', function(dataBoss){
+          var newListingBoolean = true;
 
-          console.log('socket data received');
+          socket.on('newListing', function(dataBoss){
 
-          setEvent(dataBoss);
+            newListingBoolean = false;
 
+            list(dataBoss);
+            
           });
 
 
-
         /// UPLOAD FILE METHOD START
-            var setEvent = function(data){
+            var list = function(data){
             
             var file = data.file;
 
             var AWS = require('aws-sdk');
             AWS.config = new AWS.Config();
 
-            AWS.config.accessKeyId = process.env.ACCESSKEY;
-            AWS.config.secretAccessKey = process.env.SECRETKEY;
+            AWS.config.accessKeyId = 'AKIAJTAHEHCE7ITIOAMA';
+            AWS.config.secretAccessKey = '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';
 
             //  Get userid from front side
                var url;
@@ -252,13 +248,10 @@ app.get('/events/new', function(req, res){
 
                       Bucket: bucketName
                     }
+
                   });
 
                 if (file) {
-
-                    //Object key will be facebook-USERID#/FILE_NAME
-
-                    // var objKey = 'Lacat/' + data.userId;
 
                     var objKey = 'Lacat/' + data.userid+ data.fileName;
 
@@ -275,7 +268,7 @@ app.get('/events/new', function(req, res){
                     };
 
                     bucket.putObject(params, function (err, dataObject) {
-                        if (err) {
+                        if (err){
                             
                             console.log('Error uploading pic');
 
@@ -283,37 +276,31 @@ app.get('/events/new', function(req, res){
 
                         } else {
 
-
-                                // Connect To a Database
+                              // Connect To a Database
                               var MongoClient = require('mongodb').MongoClient
                                , assert = require('assert');
 
                               // Connection URL
                               var url = process.env.MONGOURI;
                               // Use connect method to connect to the Server
-                              MongoClient.connect(url, function(err, db) {
+                              MongoClient.connect(url, function(err, db){
                                 assert.equal(null, err);
        
                                   // Add event to the database
-                                db.collection('events').insertOne({userid: sendUser._id, company: sendUser.company, eventDescription: data.eventDescription, eventLocation: data.eventLocation, eventName: data.eventName, comments:[], eventDate: data.eventDate, fileType: data.fileType, fileUrl: urlPic, fileKey: objKey}, function(err, result){
+                                db.collection('businesses').insertOne({userid: data.userid, companyName: data.companyName, contactEmail: data.contactEmail, phone: data.phone, loxion: data.loxion, address: data.address, fileType: data.fileType, about: data.about, category: data.category, fileUrl: urlPic, fileKey: objKey}, function(err, result){
                                         if (err) {
 
                                           console.log(err);
 
                                         } else {
                                           
-                                          socket.emit('uploadedEvent', 'everyone');
+                                          socket.emit('Listed', 'everyone');
 
                                         };
 
                                       });
 
-                                // End insert single document
-
                                 });
-
-
-                            console.log('File Uploaded');
 
                         }
 

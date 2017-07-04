@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tebogo Ntlatleng",
-  "license": "buzatina dot com",
+  "license": "MaxDevelops",
   "dependencies": {
-    "aws-sdk": "^2.12.0",
+    "aws-sdk": "^2.80.0",
     "bcryptjs": "*",
     "body-parser": "*",
     "connect-flash": "*",
