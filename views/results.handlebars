@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com -->
 <!--  Last Published: Sun Jul 02 2017 00:04:42 GMT+0000 (UTC)  -->
-<html data-wf-page="59574e605946be4b23b3c382" data-wf-site="594911be238fc14722ab948f">
+<html data-wf-page="594a642743e40253dc077260" data-wf-site="594911be238fc14722ab948f">
 <head>
   <meta charset="utf-8">
-  <title>signup</title>
-  <meta content="signup" property="og:title">
+  <title>Search Results</title>
+  <meta content="Search Results" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
 
@@ -34,48 +34,85 @@
       <nav class="nav-menu-results w-nav-menu" role="navigation"><a class="add-listing search-result-listing w-nav-link" href="#">Add Listing</a><a class="add-listing search-result-listing w-nav-link" href="#">Add Listing</a><a class="add-listing search-result-listing w-nav-link" href="#">Add Listing</a><a class="add-listing search-result-listing w-nav-link" href="#">Add Listing</a>
       </nav>
       <div class="menu-button-results w-nav-button"></div>
+
       <div class="form-block results w-form">
+
         <form class="form" data-name="Email Form" id="email-form" name="email-form">
           <input class="text-field-2 w-input" data-name="Name" id="name" maxlength="256" name="name" placeholder="Enter your name" type="text">
           <input class="submit-button w-button" data-wait="Please wait..." type="submit" value="search">
         </form>
-        <div class="w-form-done">
-          <div>Thank you! Your submission has been received!</div>
-        </div>
-        <div class="w-form-fail">
-          <div>Oops! Something went wrong while submitting the form</div>
-        </div>
+
       </div>
+      
     </div>
   </div>
-  <div class="sign-up-form">
-    <div class="container-4 w-container">
 
-      <div class="form-signup w-form">
-        <form class="form-3" method="POST" action="/users/register" id="registerForm" novalidate>
-          <label class="textlabel" for="email-2">Email</label>
-          <input class="text-field-style w-input" maxlength="256" name="email" placeholder="Enter your name" required="required" type="email">
-          <label class="textlabel" for="email-2">Password</label>
-          <input class="text-field-style w-input" maxlength="256" name="password" placeholder="Enter your email address" required="required" type="password">
+  <div class="section">
+    <div class="w-container">
 
-          <div class="div-block-6">
-            <input class="button-submit-register w-button"   type="submit" value="Register">
+      {{#if businesses}}
+
+      <div class="w-row">
+
+        {{#each businesses}}
+
+          <div class="column-5 w-col w-col-6 w-col-small-6 w-col-tiny-6">
+
+            <a class="link-block-3 w-inline-block" href="/biz/{{this._id}}" style="background-color: white;">
+
+              <div class="div-image-holder" style="background-image: url('{{this.fileUrl}}');"></div>
+
+              <h3 class="business-title" style="padding-right: 5px; padding-left: 5px;">{{this.companyName}}</h3>
+
+              <p class="about-business" style="padding-right: 5px; padding-left: 5px;">{{this.about}}</p>
+              
+              <div class="div-block-3" style="padding-left: 5px;"><img class="image-star" src="https://s3-us-west-2.amazonaws.com/buzatina/lacat/icons8-Star-50.png">
+                <p class="about-business">5</p>
+              </div>
+
+            </a>
+
           </div>
+
+        {{/each}}
+
+      </div>
+
+      {{/if}}
+
+    </div>
+  </div>
+
+  <div class="footer-results">
+
+    <div class="container-2 footer-results w-container">
+
+      <div class="form-block-home-search w-form">
+
+        <form class="form-home-search" method="POST" action="/" id="searchForm" novalidate>
+
+          <input class="text-field w-input" data-name="query" id="query-2" maxlength="256" name="query" placeholder="What do want?" type="text">
+
+          <select class="select-home-kasi w-select" data-name="loxion" id="loxion" name="loxion" required="required">
+            <option value="soweto">Soweto</option>
+            <option value="alexandra">Alexandra</option>
+            <option value="soshanguve">Soshanguve</option>
+            <option value="mamelodi">Mamelodi</option>
+          </select>
+
+          <input class="submit-button-home w-button" data-wait="Please wait..." type="submit" value="Search">
 
         </form>
 
       </div>
 
     </div>
-  </div>
-  <div class="add-listing section-footer">
-    <div class="container-5 w-container">
-      <h6 class="heading-3">copyright loxion pages</h6>
-    </div>
+
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
   <script src="https://s3-us-west-2.amazonaws.com/buzatina/loxion+pages/webflow.js" type="text/javascript"></script>
 
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>
