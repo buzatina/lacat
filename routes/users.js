@@ -9,6 +9,11 @@ router.get('/register', function(req, res){
 	res.render('register');
 });
 
+//Register Render Page
+router.get('/login', function(req, res){
+	res.render('login');
+});
+
 //Register POST - register a user
 router.post('/register', function(req, res){
     
@@ -37,9 +42,8 @@ router.post('/register', function(req, res){
 
       // Full text search
 	  db.collection('users').insertOne({
-				      username: req.body.username,
-				      name: req.body.name,
-				      company: req.body.company,
+				      username: req.body.email,
+				      email: req.body.email,
 				      password: hashpass,
 				      location: {type: 'Point', coordinates: [Number(1), Number(-1)]}
 					}, function(err, result){
@@ -49,8 +53,7 @@ router.post('/register', function(req, res){
 
 						} else {
 
-							console.log(result);
-							res.redirect('/users/login')
+							res.redirect('/users/login');
 
 						};
 						
