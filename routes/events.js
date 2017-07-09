@@ -14,7 +14,7 @@ router.post('/saveevents', function(req, res){
 	   , assert = require('assert');
 
 	  // Connection URL
-	  var url = process.env.MONGOURI;
+	  var url = 'mongodb://tebogo:mokgaga19916@ds155920-a0.mlab.com:55920,ds155920-a1.mlab.com:55920/buzatinalive?replicaSet=rs-ds155920';
 	  // Use connect method to connect to the Server
 	  MongoClient.connect(url, function(err, db){
 	    assert.equal(null, err);
@@ -54,7 +54,7 @@ router.get('/', function(req, res){
 	 , assert = require('assert');
 
 	// Connection URL
-	var url = process.env.MONGOURI;
+	var url = 'mongodb://tebogo:mokgaga19916@ds155920-a0.mlab.com:55920,ds155920-a1.mlab.com:55920/buzatinalive?replicaSet=rs-ds155920';
 	// Use connect method to connect to the Server
 	MongoClient.connect(url, function(err, db) {
 	  assert.equal(null, err);
@@ -90,7 +90,7 @@ router.post('/', function(req,res){
 				 , assert = require('assert');
 
 				// Connection URL
-				var url = process.env.MONGOURI;
+				var url = 'mongodb://tebogo:mokgaga19916@ds155920-a0.mlab.com:55920,ds155920-a1.mlab.com:55920/buzatinalive?replicaSet=rs-ds155920';
 				// Use connect method to connect to the Server
 				MongoClient.connect(url, function(err, db) {
 				  assert.equal(null, err);
